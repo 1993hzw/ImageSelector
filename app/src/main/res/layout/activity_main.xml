@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,9 +11,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cn.hzw.imageclipperdemo.MainActivity">
 
+
     <Button
         android:id="@+id/btn_open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="open..."/>
+
+    <ToggleButton
+        android:id="@+id/select_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/btn_open"
+        android:textOff="单选"
+        android:textOn="多选"/>
+
+    <cn.forward.androids.views.StringScrollPicker
+        android:id="@+id/select_count"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@id/select_mode"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/select_mode"
+        android:background="#e2e2e2"
+        app:spv_max_text_size="24dp"
+        app:spv_min_text_size="12dp"/>
+
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/select_mode"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:horizontalSpacing="1dp"
+        android:numColumns="3"
+        android:verticalSpacing="1dp"/>
 </RelativeLayout>

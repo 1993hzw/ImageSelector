@@ -1,20 +1,23 @@
 package cn.hzw.imageselector;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 
-import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
+import cn.forward.androids.Image.ImageLoaderConfig;
+import cn.forward.androids.Image.ImageLoaderGroup;
+import cn.forward.androids.Image.LocalImagerLoader;
+
 
 /**
  * Created by huangziwei on 16-9-1.
  */
 public class ImageLoader {
 
-    private static BitmapUtils mBitmapUtils;
-    private static BitmapDisplayConfig mBitmapDisplayConfig;
-
     private static ImageLoader sInstance;
+
+    private ImageLoaderGroup mImageLoaderGroup;
 
     public static ImageLoader getInstance(Context context) {
         if (sInstance == null) {
@@ -29,21 +32,18 @@ public class ImageLoader {
 
     private ImageLoader(Context context) {
         context = context.getApplicationContext();
-        int memoryCacheSize = (int) Runtime.getRuntime().maxMemory() / 6;
-//        int memoryCacheSize = Math.round(context.getMemoryClass() * 1024.0F * 1024.0F / 6);
+        int memoryCacheSize = (int) Runtime.getRuntime().maxMemory() / 8;
 
-        mBitmapUtils = new BitmapUtils(context, null, memoryCacheSize);
-        mBitmapDisplayConfig = new BitmapDisplayConfig();
-        mBitmapDisplayConfig.setLoadFailedDrawable(context.getResources().getDrawable(R.drawable.imageselector_loading));
-        mBitmapDisplayConfig.setLoadingDrawable(context.getResources().getDrawable(R.drawable.imageselector_loading));
-       /* Animation animation = new AlphaAnimation(0, 1);
-        animation.setDuration(100);
-        mBitmapDisplayConfig.setAnimation(animation);*/
-        mBitmapUtils.configDefaultDisplayConfig(mBitmapDisplayConfig);
+        mImageLoaderGroup = new ImageLoaderGroup(context, memoryCacheSize, 25 * 1024 * 1024);
+        mImageLoaderGroup.addImageLoader(new LocalImagerLoader(context));
+        ImageLoaderConfig config = mImageLoaderGroup.getImageLoaderConfig();
+        config.setLoadingDrawable(context.getResources().getDrawable(R.drawable.imageselector_loading));
+        config.setLoadFailedDrawable(new ColorDrawable(Color.RED));
     }
 
-    public <T extends View> void display(T container, String uri) {
-        mBitmapUtils.display(container, uri);
+    public void display(View view, String path) {
+        mImageLoaderGroup.load(view, path);
     }
+
 
 }

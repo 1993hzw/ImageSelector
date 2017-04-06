@@ -65,6 +65,8 @@ public class ImageSelectorAdapter extends BaseAdapter {
         return 0;
     }
 
+    int id = 0;
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -74,6 +76,7 @@ public class ImageSelectorAdapter extends BaseAdapter {
             holder.mImage = (ImageView) convertView.findViewById(R.id.image);
             holder.mImageSelected = (ImageView) convertView.findViewById(R.id.image_selected);
             convertView.setTag(holder);
+            holder.mImage.setTag("" + ++id);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }

@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
     }
     buildTypes {
         release {
@@ -20,6 +20,28 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/xUtils-2.6.14.jar')
-    compile project(':AndroidsLib-release')
+    compile 'com.forward.androids:androids:1.1'
+}
+
+
+def getLocalProperty(String key) {
+    if (!localPropertiesFile().exists()) {
+        return null
+    }
+
+    Properties properties = new Properties()
+    properties.load(localPropertiesFile().newDataInputStream())
+    return properties.getProperty(key)
+}
+
+def localPropertiesFile() {
+    return project.rootProject.file('local.properties');
+}
+
+def isForUpload2Maven() {
+    return getLocalProperty("for.upload") == "true"
+}
+
+if (isForUpload2Maven()) {
+    apply from: "https://raw.githubusercontent.com/1993hzw/common/master/bintrayUpload.gradle"
 }
