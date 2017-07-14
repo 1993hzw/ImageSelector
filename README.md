@@ -7,6 +7,12 @@
 
 ### 使用
 
+```
+dependencies {
+    compile 'cn.hzw.imageselector:library:1.0'
+}
+```
+
 
 ````
 /**
