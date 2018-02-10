@@ -20,7 +20,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.forward.androids:androids:1.1'
+    compile 'com.forward.androids:androids:1.1.8'
 }
 
 

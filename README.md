@@ -12,9 +12,13 @@ dependencies {
     compile 'cn.hzw.imageselector:library:1.0'
 }
 ```
-
-
-````
+### 依赖
+```
+dependencies {
+    compile 'com.forward.androids:androids:1.1.8'
+}
+```
+```java
 /**
  * 图片选择页面，扫描系统数据库中记录的图片，分批次加载
  */
@@ -29,4 +33,4 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
      */
     public static void startActivityForResult(int requestCode, Activity activity, ArrayList<String> pathList, boolean multipleChoice, int maxCount);
 }
-````
+```
